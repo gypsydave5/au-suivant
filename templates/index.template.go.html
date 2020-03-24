@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Suivant</title>
+</head>
+<body>
+<h1>Next</h1>
+<button id="start">START</button>
+<button id="stop">STOP</button>
+<h2>The Driver is:</h2>
+<p id="next">????</p>
+<script>
+  var startButton = document.getElementById('start')
+  var stopButton = document.getElementById('stop')
+  var item = document.getElementById('next')
+  if (window['WebSocket']) {
+
+    conn = new WebSocket('ws://' + document.location.host + '/ws')
+    conn.addEventListener('close', function (evt) {
+      console.log("connection closed", evt)
+    })
+
+    conn.addEventListener('message', function (event) {
+      item.innerText = event.data
+    })
+
+    startButton.addEventListener('click', function (e) {
+      e.preventDefault()
+      conn.send('start')
+    })
+
+    stopButton.addEventListener('click', function (e) {
+      e.preventDefault()
+      conn.send('stop')
+    })
+
+  } else {
+    item.innerHTML = '<b>Your browser does not support WebSockets.</b>'
+  }
+</script>
+</body>
+</html>

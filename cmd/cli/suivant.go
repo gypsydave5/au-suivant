@@ -9,7 +9,6 @@ import (
 	"os"
 	"os/exec"
 	"time"
-
 )
 
 func main() {
@@ -18,7 +17,7 @@ func main() {
 
 	names := readNames(os.Stdin)
 
-	s := suivant.New(names, time.Second* time.Duration(*delay))
+	s := suivant.New(names, time.Second*time.Duration(*delay))
 	out := s.Start()
 
 	for name := range out {
